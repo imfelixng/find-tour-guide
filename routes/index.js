@@ -78,4 +78,12 @@ router.get('/', (req, res) => {
   // promise instanceof Promise
 });
 
+router.get('/tours', (req, res) => {
+  res.render('tours');
+});
+
+router.get('/tour-guides', (req, res) => {
+  res.render('tour-guides');
+});
+
 module.exports = router;
