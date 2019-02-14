@@ -32,4 +32,7 @@ router.get('/register', function(req, res, next) {
   res.render('register');
 });
 
+router.get('/managerUser', function(req, res, next) {
+  res.render('managerUser');
+});
 module.exports = router;
