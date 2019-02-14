@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var adminRouter = require('./routes/admin');
 
 const mongoose = require('mongoose');
 
@@ -28,6 +29,7 @@ app.use(bodyParser.json())
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -7840,10 +7840,10 @@ h1, h2, h3, h4, h5,
     color: #000; }
 
 .form-control {
-  height: 52px !important;
+  height: 45px !important;
   background: #fff !important;
   color: #000 !important;
-  font-size: 18px;
+  font-size: 13px;
   border-radius: 0px;
   -webkit-box-shadow: none !important;
   box-shadow: none !important; }
