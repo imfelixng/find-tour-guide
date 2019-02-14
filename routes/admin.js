@@ -55,8 +55,7 @@ router.post('/add-location', upload.single('picture'), async (req, res) => {
     console.log("Don't created");
     return res.render('add-location', { error: 'An error has occurred, please try again in a few minutes.' });
   }
-
-  res.redirect('/admin/manage-location');
+  return res.redirect('/admin/manage-location');
 });
 
 router.get('/manage-location', (req, res) => {
