@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const TourGuideSchema = new Schema({
   idTourGuide: {
@@ -13,19 +14,19 @@ const TourGuideSchema = new Schema({
   },
   language: {
     type: String,
-    required: true,
+    required: false,
   },
   intro: {
     type: String,
-    required: true,
+    required: false,
   },
   phoneNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   price: {
     type: Number,
-    required: true,
+    required: false,
   },
   address: {
     type: String,
@@ -38,6 +39,9 @@ const TourGuideSchema = new Schema({
   star: {
     type: Number,
     required: true,
+    min: 0,
+    max: 5,
+    default: 0,
   },
 });
 
