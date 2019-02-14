@@ -1,45 +1,46 @@
-var express = require('express');
-var router = express.Router();
-var multer  = require('multer')
+const express = require('express');
+const multer = require('multer');
+
+const router = express.Router();
 
 const Location = require('../models/location');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, './uploads/')
+    cb(null, './uploads/');
   },
   filename: (req, file, cb) => {
-      cb(null, new Date().getTime() + "_" + file.originalname);
-  }
+    cb(null, `${new Date().getTime()}_${file.originalname}`);
+  },
 });
 
 const fileFilter = (req, file, cb) => {
-  //check kieu file gui len
-  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      cb(null, true);
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
   } else {
-      cb(new Error("Error mime type of file"), false);
+    cb(new Error('Error mime type of file'), false);
   }
-}
+};
 
 const upload = multer({
   storage,
-  limits: 1024 * 1024 * 5, //check kich thuoc fiel gui len
-  fileFilter
+  limits: 1024 * 1024 * 5,
+  fileFilter,
 });
 
-router.get('/add-location', function(req, res, next) {
+router.get('/add-location', (req, res) => {
   res.render('add-location');
 });
 
-router.post('/add-location', async function(req, res, next) {
-  const { location_name, address, intro, picture } = req.body;
-  
-  let location = new Location({
-    name: location_name,
+router.post('/add-location', upload.single('picture'), async (req, res) => {
+  const {
+    name, address, intro, picture,
+  } = req.body;
+  const location = new Location({
+    name,
     address,
     intro,
-    picture
+    picture,
   });
 
   let locationCreated = null;
@@ -49,14 +50,14 @@ router.post('/add-location', async function(req, res, next) {
     console.log(error);
   }
 
-  if (!location) {
+  if (!locationCreated) {
     console.log("Don't created");
   }
 
-  res.redirect("/admin/manage-location");
+  res.redirect('/admin/manage-location');
 });
 
-router.get('/manage-location', function(req, res, next) {
+router.get('/manage-location', (req, res) => {
   res.send('OK');
 });
 
