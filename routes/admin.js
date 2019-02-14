@@ -68,11 +68,45 @@ router.post('/add-location', upload.single('picture'), async (req, res) => {
   return res.redirect('/admin/manage-location');
 });
 
-router.get('/manage-location', (req, res) => {
+router.get('/manage-location', async (req, res) => {
   if (!req.session.admin) {
     return res.redirect('/');
   }
-  return res.render('manage-location');
+
+  let locations = null;
+  try {
+    locations = await Location.find();
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (!locations) {
+    locations = [];
+  }
+  return res.render('manage-location', { locations });
+});
+
+router.post('/manage-location/delete/:idLocation', async (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+
+  const { idLocation } = req.params;
+
+  let locationDeleted = null;
+
+  try {
+    locationDeleted = await Location.findByIdAndDelete(idLocation);
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (!locationDeleted) {
+    return res.render('manage-location', { error: 'An error has occurred, please try again in a few minutes.' });
+  }
+
+  return res.redirect('/admin/manage-location');
+
 });
 
 module.exports = router;
