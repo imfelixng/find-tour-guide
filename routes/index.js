@@ -5,5 +5,9 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('home', { title: 'Find tour guide' });
 });
+// GET Register form
+router.get('/register', function(req, res, next){
+  res.render('register', {title: 'Register'});
+});
 
 module.exports = router;
