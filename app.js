@@ -6,6 +6,8 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const session = require('express-session');
+
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
@@ -29,6 +31,12 @@ app.use(bodyParser.json());
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/admin', adminRouter);
+
+app.use(session({
+  secret: 'mySecretKey',
+  resave: true,
+  saveUninitialized: false
+}));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
