@@ -34,13 +34,13 @@ router.get('/add-location', (req, res) => {
 
 router.post('/add-location', upload.single('picture'), async (req, res) => {
   const {
-    name, address, intro, picture,
+    name, address, intro,
   } = req.body;
   const location = new Location({
     name,
     address,
     intro,
-    picture,
+    picture: req.file.path,
   });
 
   let locationCreated = null;
@@ -58,7 +58,7 @@ router.post('/add-location', upload.single('picture'), async (req, res) => {
 });
 
 router.get('/manage-location', (req, res) => {
-  res.send('OK');
+  res.render('manage-location');
 });
 
 module.exports = router;
