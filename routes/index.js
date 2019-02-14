@@ -54,7 +54,7 @@ router.get('/', (req, res) => {
   const listTG = TourGuide.find({}).populate('Account').sort({ star: 1 }).limit(limitTG)
     .then(fakeTG)
     .then(rawListTG => rawListTG.map(tg => ({
-      avtTG: `images/promo_${rd(3, 1)}.jpg`,
+      avtUrl: `images/promo-${rd(3, 1)}.jpg`,
       nameTG: tg.idTourGuide.fullname,
       address: tg.address,
     })));
