@@ -5,7 +5,7 @@ const Account = require('../models/account');
 
 /* GET users listing. */
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  res.render('login', { error: null});
 });
 
 router.post('/login', async function(req, res, next) {
