@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const TourGuideSchema = new Schema({
   idTourGuide: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'TourGuide',
+    ref: 'Account',
     required: true,
   },
   email: {
@@ -38,7 +38,7 @@ const TourGuideSchema = new Schema({
   star: {
     type: Number,
     required: true,
-  }
+  },
 });
 
 module.exports = mongoose.model('TourGuide', TourGuideSchema);
