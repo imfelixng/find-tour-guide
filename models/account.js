@@ -19,7 +19,7 @@ const AccountSchema = new Schema({
   },
   gender: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   birthdayDate: {
     type: Date,
