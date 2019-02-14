@@ -40,7 +40,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-mongoose.connect('mongodb://35.241.110.226:27017/discussion-db', { useNewUrlParser: true },(err) => {
+mongoose.connect('mongodb://35.241.110.226:27017/find-tour-guide-db', { useNewUrlParser: true },(err) => {
   if(err) {
     console.log(err);
   } else {
