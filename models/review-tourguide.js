@@ -17,8 +17,9 @@ const ReviewTourGuideSchema = new Schema({
     required: true,
   },
   star: {
-    type: String,
-    required: true
+    type: Number,
+    required: true,
+    default: 0,
   }
 });
 

@@ -18,15 +18,16 @@ const AccountSchema = new Schema({
   },
   gender: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   birthdayDate: {
     type: Date,
-    required: true,
+    required: false,
   },
   role: {
     type: Number,
-    required: true
+    required: true,
+    default: 1
   }
 });
 

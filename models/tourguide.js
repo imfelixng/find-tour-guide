@@ -13,19 +13,19 @@ const TourGuideSchema = new Schema({
   },
   language: {
     type: String,
-    required: true,
+    required: false,
   },
   intro: {
     type: String,
-    required: true,
+    required: false,
   },
   phoneNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   price: {
     type: Number,
-    required: true,
+    required: false,
   },
   address: {
     type: String,
@@ -33,11 +33,13 @@ const TourGuideSchema = new Schema({
   },
   status: {
     type: Boolean,
-    required: true,
+    required: false,
+    default: true,
   },
   star: {
     type: Number,
-    required: true,
+    required: false,
+    default: 0
   },
 });
 

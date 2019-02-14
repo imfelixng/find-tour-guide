@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const Account = require('../models/account');
+const TourGuide = require('../models/tourguide');
 
 /* GET users listing. */
 router.get('/login', function(req, res, next) {
@@ -33,7 +34,8 @@ router.get('/register', function(req, res, next) {
 });
 
 router.post('/register', async function (req, res, next) {
-  const {username, password, fullname, gender, birthdayDate, role} = req.body;
+  console.log(req.body);
+  const {username, password, password_conf, gender, wantTourGuide, email, address} = req.body;
   let account = null;
 
   try{
@@ -44,20 +46,28 @@ router.post('/register', async function (req, res, next) {
 
   if(account){
     return res.render('register', {error: "username is exist!"})
-  }else{
+  }
+  if(!wantTourGuide){
     let user = new Account({
       username, 
       password,
-      fullname,
-      gender,
-      birthdayDate,
-      role
+      
     });
+
+
+  }
+  else{
+    let tourGuide = new TourGuide({
+      username, 
+      password, 
+
+    })
+  }
+    
 
     user.save().then().catch(err => {
       res.status(400).send("unable to save data");
     });
-  }
   return res.redirect('/');
 })
 
