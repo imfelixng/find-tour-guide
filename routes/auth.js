@@ -103,6 +103,7 @@ router.post('/register', async function (req, res, next) {
       email, 
       address
     });
+    console.log(tourGuide);
 
     tourGuide.save().then().catch(err => {
       res.status(400).send("unable to save data");
