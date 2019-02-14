@@ -38,7 +38,7 @@ const TourGuideSchema = new Schema({
   star: {
     type: Number,
     required: true,
-  }
+  },
 });
 
 module.exports = mongoose.model('TourGuide', TourGuideSchema);
