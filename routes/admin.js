@@ -48,10 +48,12 @@ router.post('/add-location', upload.single('picture'), async (req, res) => {
     locationCreated = await location.save();
   } catch (error) {
     console.log(error);
+    return res.render('add-location', { error: 'An error has occurred, please try again in a few minutes.' });
   }
 
   if (!locationCreated) {
     console.log("Don't created");
+    return res.render('add-location', { error: 'An error has occurred, please try again in a few minutes.' });
   }
 
   res.redirect('/admin/manage-location');

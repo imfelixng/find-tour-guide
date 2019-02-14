@@ -17,6 +17,7 @@ router.post('/login', async (req, res) => {
     account = await Account.findOne({ username });
   } catch (error) {
     console.log(error);
+    return res.render('add-location', { error: 'An error has occurred, please try again in a few minutes.' });
   }
 
   if (!account) {
@@ -37,6 +38,7 @@ router.post('/login', async (req, res) => {
     account = await Account.findOne({ username });
   } catch (error) {
     console.log(error);
+    return res.render('add-location', { error: 'An error has occurred, please try again in a few minutes.' });
   }
 
   if (!account) {
@@ -53,7 +55,7 @@ router.get('/register', (req, res) => {
   res.render('register');
 });
 
-router.get('/manager-user', function(req, res, next) {
+router.get('/manager-user', (req, res) => {
   res.render('manager-user');
 });
 
