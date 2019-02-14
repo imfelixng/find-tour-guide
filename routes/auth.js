@@ -31,28 +31,13 @@ router.post('/login', async (req, res) => {
   if (account.password !== password) {
     return res.render('login', { error: 'Username or password is incorrect!' });
   }
+
+  if (account.role === 0) {
+    req.session.admin = true;
+    return res.redirect('/admin');
+  }
+
   req.session.username = account.username;
-  return res.redirect('/');
-});
-
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  let account = null;
-  try {
-    account = await Account.findOne({ username });
-  } catch (error) {
-    console.log(error);
-    return res.render('add-location', { error: 'An error has occurred, please try again in a few minutes.' });
-  }
-
-  if (!account) {
-    return res.render('login', { error: 'Username or password is incorrect!' });
-  }
-
-  if (account.password !== password) {
-    return res.render('login', { error: 'Username or password is incorrect!' });
-  }
   return res.redirect('/');
 });
 

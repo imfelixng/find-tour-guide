@@ -28,8 +28,18 @@ const upload = multer({
   fileFilter,
 });
 
+router.get('/', (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+  return res.render('admin');
+});
+
 router.get('/add-location', (req, res) => {
-  res.render('add-location');
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+  return res.render('add-location');
 });
 
 router.post('/add-location', upload.single('picture'), async (req, res) => {
@@ -59,7 +69,10 @@ router.post('/add-location', upload.single('picture'), async (req, res) => {
 });
 
 router.get('/manage-location', (req, res) => {
-  res.render('manage-location');
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+  return res.render('manage-location');
 });
 
 module.exports = router;
