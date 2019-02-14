@@ -60,7 +60,7 @@
                       <h2>Thêm địa điểm mới </h2>
                   </div>
       
-                <form action="#" method="POST">
+                <form method="POST" action = "/admin/add-location" enctype="multipart/form-data>
                   <div class="form-group">
                   <input type="text" class="form-control" placeholder="Tên địa điểm " name="location_name" required>
                   </div>
@@ -71,7 +71,7 @@
                       <input type="file" class="form-control" name="picture" required>
                   </div>
                   <div class="form-group">
-                  <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Giới thiệu " name="introduction" required></textarea>
+                  <textarea id="" cols="30" rows="7" class="form-control" placeholder="Giới thiệu " name="intro" required></textarea>
                   </div>
                   <div class="form-group">
                   <input type="submit" value="Thêm " class="btn btn-primary py-3 px-5">
