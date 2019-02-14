@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const LocationSchema = new Schema({
   name: {
@@ -20,7 +21,10 @@ const LocationSchema = new Schema({
   },
   star: {
     type: Number,
-    required: true,
+    required: false,
+    max: 5,
+    min: 0,
+    default: 0,
   },
 });
 
