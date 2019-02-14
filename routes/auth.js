@@ -96,8 +96,10 @@ router.post('/register', async function (req, res, next) {
     res.status(400).send("unable to save data");
   });
 
+  let id = user._id;
   if(role == 2){
     let tourGuide = new TourGuide({
+      id,
       email, 
       address
     });
