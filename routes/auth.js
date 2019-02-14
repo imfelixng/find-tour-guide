@@ -52,8 +52,8 @@ router.get('/register', function(req, res, next) {
   res.render('register');
 });
 
-router.get('/managerUser', function(req, res, next) {
-  res.render('managerUser');
+router.get('/manager-user', function(req, res, next) {
+  res.render('manager-user');
 });
 
 router.get('/place-detail', function(req, res, next) {
