@@ -10,6 +10,8 @@ var authRouter = require('./routes/auth');
 
 const mongoose = require('mongoose');
 
+const session = require('express-session');
+
 var app = express();
 
 // view engine setup
@@ -28,6 +30,12 @@ app.use(bodyParser.json())
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
+
+app.use(session({
+  secret: 'mySecretKey',
+  resave: true,
+  saveUninitialized: false
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
