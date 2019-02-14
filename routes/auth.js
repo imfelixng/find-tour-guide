@@ -35,7 +35,7 @@ router.get('/register', function(req, res, next) {
 
 router.post('/register', async function (req, res, next) {
   console.log(req.body);
-  const {username, password, password_conf, gender, wantTourGuide, email, address} = req.body;
+  const {username, password, confirmPassword, gender, wantTourGuide, email, address} = req.body;
   let account = null;
 
   try{
@@ -45,29 +45,41 @@ router.post('/register', async function (req, res, next) {
   }
 
   if(account){
-    return res.render('register', {error: "username is exist!"})
+    return res.render('register', {error: "username is exist!"});
   }
+  if(password != confirmPassword){
+    return res.render('register', {error: "Wrong password"});
+  }
+  let role = null;
   if(!wantTourGuide){
-    let user = new Account({
-      username, 
-      password,
-      
-    });
-
-
+    role = 1;
   }
   else{
-    let tourGuide = new TourGuide({
-      username, 
-      password, 
-
-    })
+    role = 2;
   }
-    
+  let user = new Account({
+    username, 
+    password,
+    fullname,
+    gender,
+    role
+  });
 
-    user.save().then().catch(err => {
+  user.save().then().catch(err => {
+    res.status(400).send("unable to save data");
+  });
+
+  if(role == 2){
+    let tourGuide = new TourGuide({
+      email, 
+      address
+    });
+
+    tourGuide.save().then().catch(err => {
       res.status(400).send("unable to save data");
     });
+  }
+
   return res.redirect('/');
 })
 
