@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   let arrPlaces = [
     {
-      imgPlace: URL('../imgages/'),
+      imgPlace: '../imgages/',
       namePlace: 'plac 1',
       des: 'saa'
     },
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
       des: 'saa'
     }
   ];
-  res.render('home', { title: 'Find tour guide', list: arr });
+  res.render('home', { title: 'Find tour guide', list: arrPlaces });
 });
 
 module.exports = router;
