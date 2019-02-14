@@ -10,4 +10,8 @@ router.get('/register', function(req, res, next) {
   res.render('register');
 });
 
+router.get('/place-detail', function(req, res, next) {
+  res.render('place-detail');
+});
+
 module.exports = router;
