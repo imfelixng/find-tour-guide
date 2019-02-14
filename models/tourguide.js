@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const TourGuideSchema = new Schema({
   idTourGuide: {
@@ -38,8 +39,10 @@ const TourGuideSchema = new Schema({
   },
   star: {
     type: Number,
-    required: false,
-    default: 0
+    required: true,
+    min: 0,
+    max: 5,
+    default: 0,
   },
 });
 

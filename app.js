@@ -1,18 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const bodyParser = require('body-parser');
-
-var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth');
-
 const mongoose = require('mongoose');
 
 const session = require('express-session');
 
-var app = express();
+const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
+const adminRouter = require('./routes/admin');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,12 +24,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
+app.use('/admin', adminRouter);
 
 app.use(session({
   secret: 'mySecretKey',
@@ -38,12 +39,12 @@ app.use(session({
 }));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -53,11 +54,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-mongoose.connect('mongodb://35.241.110.226:27017/find-tour-guide-db', { useNewUrlParser: true },(err) => {
-  if(err) {
+mongoose.connect('mongodb://35.241.110.226:27017/find-tour-guide-db', { useNewUrlParser: true }, (err) => {
+  if (err) {
     console.log(err);
   } else {
-    console.log("Connected success");
+    console.log('Connected success');
   }
 });
 

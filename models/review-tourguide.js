@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const ReviewTourGuideSchema = new Schema({
   idTourGuide: {
@@ -17,10 +18,11 @@ const ReviewTourGuideSchema = new Schema({
     required: true,
   },
   star: {
-    type: Number,
+    type: String,
     required: true,
-    default: 0,
-  }
+    min: 0,
+    max: 5,
+  },
 });
 
 module.exports = mongoose.model('ReviewTourGuide', ReviewTourGuideSchema);
