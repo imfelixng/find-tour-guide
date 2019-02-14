@@ -35,4 +35,8 @@ router.get('/register', function(req, res, next) {
 router.get('/managerUser', function(req, res, next) {
   res.render('managerUser');
 });
+
+router.get('/place-detail', function(req, res, next) {
+  res.render('place-detail');
+});
 module.exports = router;
