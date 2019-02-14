@@ -64,7 +64,7 @@ router.get('/', (req, res) => {
     .then(fakePlace)
     .then(rawListPlace => rawListPlace.map(place => ({
       imgPlace: `images/tour-${rd(8, 1)}.jpg`,
-      name: place.name,
+      namePlace: place.name,
       des: place.intro,
     })));
 
@@ -75,7 +75,6 @@ router.get('/', (req, res) => {
     .catch(() => {
       res.render('home', { title: 'Find tour guide' });
     });
-  // promise instanceof Promise
 });
 
 module.exports = router;
