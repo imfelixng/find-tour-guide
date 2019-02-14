@@ -7,7 +7,10 @@ const TourGuide = require('../models/tourguide');
 
 /* GET users listing. */
 router.get('/login', (req, res) => {
-  res.render('login', { error: null });
+  if (req.session.username) {
+    return res.redirect('/');
+  }
+  return res.render('login', { error: null });
 });
 
 router.post('/login', async (req, res) => {
@@ -28,6 +31,7 @@ router.post('/login', async (req, res) => {
   if (account.password !== password) {
     return res.render('login', { error: 'Username or password is incorrect!' });
   }
+  req.session.username = account.username;
   return res.redirect('/');
 });
 
@@ -53,7 +57,10 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/register', (req, res) => {
-  res.render('register');
+  if (req.session.username) {
+    return res.redirect('/');
+  }
+  return res.render('register');
 });
 
 router.post('/register', async function (req, res, next) {

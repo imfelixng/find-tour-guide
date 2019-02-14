@@ -28,15 +28,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
+
+app.set('trust proxy', 1);
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}));
+
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/admin', adminRouter);
-
-app.use(session({
-  secret: 'mySecretKey',
-  resave: true,
-  saveUninitialized: false
-}));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

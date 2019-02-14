@@ -70,10 +70,10 @@ router.get('/', (req, res) => {
 
   Promise.all([listTG, listPlace])
     .then((allList) => {
-      res.render('home', { title: 'Find tour guide', listTG: allList[0], listPlace: allList[1] });
+      res.render('home', { title: 'Find tour guide', listTG: allList[0], listPlace: allList[1], username: req.session.usernamem });
     })
     .catch(() => {
-      res.render('home', { title: 'Find tour guide' });
+      res.render('home', { title: 'Find tour guide', username: req.session.username });
     });
   // promise instanceof Promise
 });
