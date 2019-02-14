@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
@@ -20,6 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
@@ -40,7 +45,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-mongoose.connect('mongodb://35.241.110.226:27017/discussion-db', { useNewUrlParser: true },(err) => {
+mongoose.connect('mongodb://35.241.110.226:27017/find-tour-guide-db', { useNewUrlParser: true },(err) => {
   if(err) {
     console.log(err);
   } else {
