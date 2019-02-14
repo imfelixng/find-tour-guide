@@ -5,7 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
+
+const mongoose = require('mongoose');
 
 var app = express();
 
@@ -20,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -36,6 +38,14 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+mongoose.connect('mongodb://35.241.110.226:27017/discussion-db', { useNewUrlParser: true },(err) => {
+  if(err) {
+    console.log(err);
+  } else {
+    console.log("Connected success");
+  }
 });
 
 module.exports = app;
