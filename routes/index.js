@@ -77,9 +77,5 @@ router.get('/', (req, res) => {
     });
   // promise instanceof Promise
 });
-// GET Register form
-router.get('/register', function(req, res, next){
-  res.render('register', {title: 'Register'});
-});
 
 module.exports = router;
