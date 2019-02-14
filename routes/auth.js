@@ -53,8 +53,8 @@ router.get('/register', (req, res) => {
   res.render('register');
 });
 
-router.get('/managerUser', (req, res) => {
-  res.render('managerUser');
+router.get('/manager-user', function(req, res, next) {
+  res.render('manager-user');
 });
 
 router.get('/place-detail', (req, res) => {
