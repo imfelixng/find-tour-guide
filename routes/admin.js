@@ -4,6 +4,7 @@ const multer = require('multer');
 const router = express.Router();
 
 const Location = require('../models/location');
+const User = require('../models/account');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -83,6 +84,7 @@ router.get('/manage-location', async (req, res) => {
   if (!locations) {
     locations = [];
   }
+  console.log(locations);
   return res.render('manage-location', { locations });
 });
 
@@ -99,6 +101,7 @@ router.post('/manage-location/delete/:idLocation', async (req, res) => {
     locationDeleted = await Location.findByIdAndDelete(idLocation);
   } catch (error) {
     console.log(error);
+    return res.render('manage-location', { error: 'An error has occurred, please try again in a few minutes.' });
   }
 
   if (!locationDeleted) {
@@ -106,6 +109,52 @@ router.post('/manage-location/delete/:idLocation', async (req, res) => {
   }
 
   return res.redirect('/admin/manage-location');
+});
+
+router.get('/manager-user', async (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+
+  let users = null;
+  try {
+    users = await User.find({
+      role: {
+        $ne: 0,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (!users) {
+    users = [];
+  }
+  console.log(users);
+  return res.render('manager-user', { users });
+});
+
+router.post('/manager-user/delete/:idUser', async (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+
+  const { idUser } = req.params;
+
+  let userDeleted = null;
+
+  try {
+    userDeleted = await Location.findByIdAndDelete(idUser);
+  } catch (error) {
+    console.log(error);
+    return res.render('manager-user', { error: 'An error has occurred, please try again in a few minutes.' });
+  }
+
+  if (!userDeleted) {
+    return res.render('manager-user', { error: 'An error has occurred, please try again in a few minutes.' });
+  }
+  console.log(userDeleted);
+  return res.redirect('/admin/manager-user');
 });
 
 module.exports = router;
