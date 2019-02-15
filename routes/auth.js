@@ -1,5 +1,5 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
 const router = express.Router();
 
 const Account = require('../models/account');
@@ -45,7 +45,7 @@ router.get('/register', (req, res) => {
   if (req.session.username) {
     return res.redirect('/');
   }
-  return res.render('register');
+  return res.render('register', {username: req.session.username});
 });
 
 router.post('/register', async function (req, res, next) {
@@ -84,32 +84,37 @@ router.post('/register', async function (req, res, next) {
     role
   });
 
-  user.save().then().catch(err => {
-    res.status(400).send("unable to save data");
+  user.save().then(userResult => {
+    return res.redirect('/login');
+    let id = userResult._id;
+    if (userResult.role === 2){
+      let tourGuide = new TourGuide({
+        idTourGuide: id,
+        email, 
+        address
+      });
+      console.log("AAAAAAA");
+      tourGuide.save().then(resp => res.redirect('/login')).catch(err => {
+        console.log(err);
+        return res.send("tourguide unable to save data");
+      });
+    }
+  }).catch(err => {
+    return res.send("user unable to save data");
   });
+});
 
-  let id = user._id;
-  if(role == 2){
-    let tourGuide = new TourGuide({
-      id,
-      email, 
-      address
-    });
-    console.log(tourGuide);
-
-    tourGuide.save().then().catch(err => {
-      res.status(400).send("unable to save data");
-    });
-  }
-
-  return res.redirect('/login');
+router.get('/logout', (req, res) => {
+  req.session.username = null;
+  return res.redirect('/');
 });
 
 router.get('/manager-user', (req, res) => {
-  res.render('manager-user');
+  res.render('manager-user', {username: req.session.username});
 });
 
 router.get('/place-detail', (req, res) => {
-  res.render('place-detail');
+  res.render('place-detail', {username: req.session.username});
 });
+
 module.exports = router;

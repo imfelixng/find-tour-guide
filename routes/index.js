@@ -13,6 +13,7 @@ const fakeTG = (listTG) => {
   if (!Array.isArray(listTG)) {
     listTG = [];
   }
+  console.log(listTG);
   if (listTG.length === 0) {
     listTG = [{
       idTourGuide: { fullname: 'Tu Anh Hong' },
@@ -49,13 +50,19 @@ const fakePlace = (listPlace) => {
 };
 /* GET home page. */
 router.get('/', (req, res) => {
-  const listTG = TourGuide.find({}).populate('Account').sort({ star: 1 }).limit(limitTG)
+  console.log('a');
+  const listTG = TourGuide.find({}).populate('idTourGuide').sort({ star: 1 }).limit(limitTG)
     .then(fakeTG)
-    .then(rawListTG => rawListTG.map(tg => ({
-      avtUrl: `images/promo-${rd(3, 1)}.jpg`,
-      nameTG: tg.idTourGuide.fullname,
-      address: tg.address,
-    })));
+    .then(rawListTG => rawListTG.map((tg) => {
+      console.log(1);
+      console.log(tg.idTourGuide);
+      return {
+        avtUrl: `images/promo-${rd(3, 1)}.jpg`,
+        nameTG: tg.fullname,
+        address: tg.address,
+        id: tg._id,
+      };
+    }));
 
   const listPlace = Location.find({}).sort({ star: 1 }).limit(limitPlace)
     .then(fakePlace)
@@ -63,19 +70,23 @@ router.get('/', (req, res) => {
       imgPlace: `images/tour-${rd(8, 1)}.jpg`,
       namePlace: place.name,
       des: place.intro,
+      id: place._id,
     })));
 
   Promise.all([listTG, listPlace])
     .then((allList) => {
-      res.render('home', { title: 'Find tour guide', listTG: allList[0], listPlace: allList[1], username: req.session.usernamem });
+      res.render('home', {
+        title: 'Find tour guide', listTG: allList[0], listPlace: allList[1], username: req.session.username,
+      });
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       res.render('home', { title: 'Find tour guide', username: req.session.username });
     });
 });
 
 router.get('/tours', (req, res) => {
-  res.render('tours');
+  res.render('tours', {username: req.session.username});
 });
 
 // GET List Tour Guides
@@ -91,7 +102,7 @@ router.get('/tour-guides', (req, res) => {
     })))
     .then((listTG) => {
       console.log(listTG);
-      res.render('tour-guides', { listTG: listTG });
+      res.render('tour-guides', { listTG: listTG, {username: req.session.username} });
     });
 });
 
@@ -109,7 +120,7 @@ router.get('/tour-guides-detail', (req, res) => {
       return tg;
     })
     .then((tourGuide) => {
-      res.render('tour-guides-detail', tourGuide);
+      res.render('tour-guides-detail', {username: req.session.username, tourGuide});
     })
     .catch(() => {
       res.redirect('/tour-guides');
