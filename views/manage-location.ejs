@@ -53,7 +53,7 @@
                             <th scope="row"><%= i + 1 %></th>
                             <td><%= locations[i].name %></td>
                             <td><%= locations[i].address %></td>
-                            <td><img src="localhost:3000/<%= locations[i].picture %>" style="width: 300px; height: 200px;"/></td>
+                            <td><img src="http://localhost:3000/<%= locations[i].picture %>" style="width: 300px; height: 200px;"/></td>
                             <td><a href="/admin/manage-location/delete/<%= locations[i]._id %>" class="btn btn-danger">Delete</a></td>
                           </tr>
                           <% } %>
