@@ -84,10 +84,20 @@ router.get('/tour-guides', (req, res) => {
 
 // GET List Tour Guides
 router.get('/tour-guides', (req, res) => {
-  res.render('tour-guides');
+  TourGuide.find({}).populate('idTourGuide').sort({ star: 1 })
+    .then(fakeTG)
+    .then(rawListTG => rawListTG.map(tg => ({
+      avtUrl: `images/promo-${rd(3, 1)}.jpg`,
+      nameTG: tg.idTourGuide.fullname,
+      address: tg.address,
+      id: tg._id,
+    })))
+    .then((listTG) => {
+      res.render('tour-guides', listTG);
+    });
 });
 
-//GET tour-guides detail
+// GET tour-guides detail
 router.get('/tour-guides-detail', (req, res) => {
   res.render('tour-guides-detail');
 });
