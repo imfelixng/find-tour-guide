@@ -28,8 +28,18 @@ const upload = multer({
   fileFilter,
 });
 
+router.get('/', (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+  return res.render('admin');
+});
+
 router.get('/add-location', (req, res) => {
-  res.render('add-location');
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+  return res.render('add-location');
 });
 
 router.post('/add-location', upload.single('picture'), async (req, res) => {
@@ -58,8 +68,45 @@ router.post('/add-location', upload.single('picture'), async (req, res) => {
   return res.redirect('/admin/manage-location');
 });
 
-router.get('/manage-location', (req, res) => {
-  res.render('manage-location');
+router.get('/manage-location', async (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+
+  let locations = null;
+  try {
+    locations = await Location.find();
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (!locations) {
+    locations = [];
+  }
+  return res.render('manage-location', { locations });
+});
+
+router.post('/manage-location/delete/:idLocation', async (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+
+  const { idLocation } = req.params;
+
+  let locationDeleted = null;
+
+  try {
+    locationDeleted = await Location.findByIdAndDelete(idLocation);
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (!locationDeleted) {
+    return res.render('manage-location', { error: 'An error has occurred, please try again in a few minutes.' });
+  }
+
+  return res.redirect('/admin/manage-location');
+
 });
 
 module.exports = router;

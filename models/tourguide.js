@@ -34,7 +34,8 @@ const TourGuideSchema = new Schema({
   },
   status: {
     type: Boolean,
-    required: true,
+    required: false,
+    default: true,
   },
   star: {
     type: Number,
