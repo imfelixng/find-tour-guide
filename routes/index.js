@@ -110,9 +110,11 @@ router.get('place-detail', (req, res) => {
       namePlace: place.name,
       des: place.intro,
       address: place.address,
-    })));
-    console.log(locationDetail);
-})
+    }))
+    .then((listPlace) => {
+      console.log(listPlace);
+      res.render('place-detail', {title: "detail", listPlace: listPlace});
+    }));
 
 router.get('/tour-guides', (req, res) => {
   res.render('tour-guides');
