@@ -102,6 +102,11 @@ router.post('/register', async function (req, res, next) {
   });
 });
 
+router.get('/logout', (req, res) => {
+  req.session.username = null;
+  return res.redirect('/');
+});
+
 router.get('/manager-user', (req, res) => {
   res.render('manager-user');
 });

@@ -69,7 +69,8 @@ router.get('/', (req, res) => {
 
   Promise.all([listTG, listPlace])
     .then((allList) => {
-      res.render('home', { title: 'Find tour guide', listTG: allList[0], listPlace: allList[1], username: req.session.usernamem });
+      console.log(req.session.username);
+      res.render('home', { title: 'Find tour guide', listTG: allList[0], listPlace: allList[1], username: req.session.username });
     })
     .catch(() => {
       res.render('home', { title: 'Find tour guide', username: req.session.username });
