@@ -3,14 +3,14 @@
   <% include layout/header.ejs %>
   <body>
     <% include layout/navbar.ejs %>
-    <section style="background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/images/bg_1.jpg); padding-top: 100px;">
+    <section style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(/images/bg_1.jpg); padding-top: 100px;">
     </section>
     <!-- END nav -->
     <section class="ltg-section">
       <div class="container">
         <h1 style="margin-bottom: 20px;">List Tour Guides</h1>
         <div class="row">
-            <% for(let i = 0 ; i <8;i++) { %>
+          <% for(let i = 0 ; i <listTG.length;i++) { %>
           <div class="col-lg-3 promo ftco-animate item-tourguides">
               <a href="#" class="promo-img mb-4" style="background-image: url(images/boytg.jpeg);"></a>
               <div class="text text-center">
