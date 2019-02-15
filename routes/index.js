@@ -91,6 +91,7 @@ router.get('/tour-guides', (req, res) => {
       nameTG: tg.idTourGuide.fullname,
       address: tg.address,
       id: tg._id,
+      price: tg.price,
     })))
     .then((listTG) => {
       res.render('tour-guides', listTG);
@@ -99,6 +100,21 @@ router.get('/tour-guides', (req, res) => {
 
 // GET tour-guides detail
 router.get('/tour-guides-detail', (req, res) => {
-  res.render('tour-guides-detail');
+  const { id } = req.query;
+
+  TourGuide.findById(id).populate('idTourGuide')
+    .then((tg) => {
+      tg.avtUrl = `images/promo-${rd(3, 1)}.jpg`;
+      tg.fullname = tg.idTourGuide.fullname;
+      tg.gender = tg.idTourGuide.gender;
+      tg.birthdayDate = tg.idTourGuide.birthdayDate;
+      return tg;
+    })
+    .then((tourGuide) => {
+      res.render('tour-guides-detail', tourGuide);
+    })
+    .catch(() => {
+      res.redirect('/tour-guides');
+    });
 });
 module.exports = router;
