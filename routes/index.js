@@ -77,7 +77,17 @@ router.get('/', (req, res) => {
 });
 
 router.get('/tours', (req, res) => {
-  res.render('tours');
+  Location.find({}).sort({ star: 1 }).limit(limitPlace)
+  .then(fakePlace)
+  .then(rawListPlace => rawListPlace.map(place => ({
+    imgPlace: `images/tour-${rd(8, 1)}.jpg`,
+    namePlace: place.name,
+    des: place.intro,
+    id: place._id,
+  })))
+  .then((listPlace) => {
+    res.render('tours', {title: "tourList", listPlace: listPlace});
+  })
 });
 
 router.get('/tour-guides', (req, res) => {
