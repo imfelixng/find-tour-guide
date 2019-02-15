@@ -33,7 +33,7 @@ router.get('/register', function(req, res, next) {
 });
 
 router.get('/place-detail', function(req, res, next) {
-  res.render('place-detail');
+  res.render('place-detail', {title: "detail"});
 });
 
 module.exports = router;
