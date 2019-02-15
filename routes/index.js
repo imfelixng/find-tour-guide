@@ -23,7 +23,7 @@ const fakeTG = (listTG) => {
       address: 'Nguyen Luong Bang',
     }, {
       idTourGuide: { fullname: 'Tran Huu Trung' },
-      address: 'Dong Ke',
+      address: 'Au Co',
     }, {
       idTourGuide: { fullname: 'Phuoc Binh' },
       address: 'Lac Long Quan',
@@ -82,4 +82,13 @@ router.get('/tour-guides', (req, res) => {
   res.render('tour-guides');
 });
 
+// GET List Tour Guides
+router.get('/tour-guides', (req, res) => {
+  res.render('tour-guides');
+});
+
+//GET tour-guides detail
+router.get('/tour-guides-detail', (req, res) => {
+  res.render('tour-guides-detail');
+});
 module.exports = router;
