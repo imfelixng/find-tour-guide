@@ -99,18 +99,58 @@ router.get('/tours', (req, res) => {
   })
 });
 
-router.get('/tour-guides', (req, res) => {
-  res.render('tour-guides', {username: req.session.username});
-});
-
 // GET List Tour Guides
 router.get('/tour-guides', (req, res) => {
-  res.render('tour-guides', {username: req.session.username});
+  TourGuide.find({}).populate('idTourGuide').sort({ star: 1 })
+    .then(fakeTG)
+    .then(rawListTG => rawListTG.map(tg => ({
+      avtUrl: `images/promo-${rd(3, 1)}.jpg`,
+      nameTG: tg.idTourGuide.fullname,
+      address: tg.address,
+      id: tg._id,
+      price: tg.price,
+    })))
+    .then((listTG) => {
+      console.log(listTG);
+      res.render('tour-guides', { listTG: listTG, username: req.session.username });
+    });
 });
 
 // GET tour-guides detail
 router.get('/tour-guides-detail', (req, res) => {
-  res.render('tour-guides-detail', {username: req.session.username});
+  const { id } = req.query;
+
+  TourGuide.findById(id).populate('idTourGuide')
+    .then((tg) => {
+      tg.avtUrl = `images/promo-${rd(3, 1)}.jpg`;
+      tg.fullname = tg.idTourGuide.fullname;
+      tg.rank = rd(5,2);
+      tg.gender = tg.idTourGuide.gender;
+      tg.birthdayDate = tg.idTourGuide.birthdayDate;
+      return tg;
+    })
+    .then((tourGuide) => {
+      res.render('tour-guides-detail', {username: req.session.username, tourGuide});
+    })
+    .catch(() => {
+      res.redirect('/tour-guides');
+    });
+});
+
+router.get('/place-detail', function(req, res, next) {
+  TourGuide.find({}).populate('idTourGuide').sort({ star: 1 }).limit(limitTG)
+    .then(fakeTG)
+    .then(rawListTG => rawListTG.map(tg => ({
+      avtUrl: `images/promo-${rd(3, 1)}.jpg`,
+      nameTG: tg.idTourGuide.fullname,
+      address: tg.address,
+      id: tg._id,
+    })))
+    .then((listTG) => {
+      console.log(listTG);
+      res.render('place-detail', {title: "detail", listTG: listTG});
+    })
+  
 });
 
 router.get('/place-detail', function(req, res, next) {
