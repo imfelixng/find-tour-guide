@@ -102,7 +102,7 @@ router.get('/tour-guides', (req, res) => {
     })))
     .then((listTG) => {
       console.log(listTG);
-      res.render('tour-guides', { listTG: listTG, {username: req.session.username} });
+      res.render('tour-guides', { listTG: listTG, username: req.session.username });
     });
 });
 
