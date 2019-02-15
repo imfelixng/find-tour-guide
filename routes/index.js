@@ -49,12 +49,13 @@ const fakePlace = (listPlace) => {
 };
 /* GET home page. */
 router.get('/', (req, res) => {
-  const listTG = TourGuide.find({}).populate('Account').sort({ star: 1 }).limit(limitTG)
+  const listTG = TourGuide.find({}).populate('idTourGuide').sort({ star: 1 }).limit(limitTG)
     .then(fakeTG)
     .then(rawListTG => rawListTG.map(tg => ({
       avtUrl: `images/promo-${rd(3, 1)}.jpg`,
       nameTG: tg.idTourGuide.fullname,
       address: tg.address,
+      id: tg._id,
     })));
 
   const listPlace = Location.find({}).sort({ star: 1 }).limit(limitPlace)
@@ -63,6 +64,7 @@ router.get('/', (req, res) => {
       imgPlace: `images/tour-${rd(8, 1)}.jpg`,
       namePlace: place.name,
       des: place.intro,
+      id: place._id,
     })));
 
   Promise.all([listTG, listPlace])

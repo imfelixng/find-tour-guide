@@ -48,27 +48,15 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <% for(var i = 0; i < locations.length; i++) { %>
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td><img src="/images/image_1.jpg" style="width: 300px; height: 200px;"/></td>
-                            <td><a href="#" class="btn btn-danger">Delete</a></td>
+                            <th scope="row"><%= locations[i]._id %></th>
+                            <td><%= locations[i].name %></td>
+                            <td><%= locations[i].address %></td>
+                            <td><img src="<%= locations[i].picture %>" style="width: 300px; height: 200px;"/></td>
+                            <td><a href="/admin/manage-location/delete/<%= locations[i].name %>" class="btn btn-danger">Delete</a></td>
                           </tr>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td><img src="/images/image_1.jpg" style="width: 300px; height: 200px;"/></td>
-                            <td><a href="#" class="btn btn-danger">Delete</a></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td><img src="/images/image_1.jpg" style="width: 300px; height: 200px;"/></td>
-                            <td><a href="#" class="btn btn-danger">Delete</a></td>
-                          </tr>
+                          <% } %>
                           </tbody>
                       </table>
               </div>
