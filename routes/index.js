@@ -128,17 +128,23 @@ router.get('/tour-guides-detail', (req, res) => {
 });
 
 router.get('/place-detail', (req, res) => {
-  TourGuide.find({}).populate('idTourGuide').sort({ star: 1 }).limit(limitTG)
+  const { id } = req.query;
+
+  const pListTG = TourGuide.find({}).populate('idTourGuide').sort({ star: 1 }).limit(limitTG)
     .then(fakeTG)
     .then(rawListTG => rawListTG.map(tg => ({
       avtUrl: `images/promo-${rd(3, 1)}.jpg`,
       nameTG: tg.idTourGuide.fullname,
       address: tg.address,
       id: tg._id,
-    })))
-    .then((listTG) => {
-      console.log(listTG);
-      res.render('place-detail', { title: 'detail', listTG });
+    })));
+  const pDetails = Location.findById(id);
+  Promise.all([pListTG, pDetails])
+    .then((data) => {
+      res.render('place-detail', { title: 'detail', listTG: data[0], details: data[1] });
+    })
+    .catch(() => {
+      res.redirect('/tours');
     });
 });
 module.exports = router;
