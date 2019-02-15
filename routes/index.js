@@ -78,10 +78,6 @@ router.get('/tours', (req, res) => {
   res.render('tours');
 });
 
-router.get('/tour-guides', (req, res) => {
-  res.render('tour-guides');
-});
-
 // GET List Tour Guides
 router.get('/tour-guides', (req, res) => {
   TourGuide.find({}).populate('idTourGuide').sort({ star: 1 })
@@ -93,7 +89,8 @@ router.get('/tour-guides', (req, res) => {
       id: tg._id,
     })))
     .then((listTG) => {
-      res.render('tour-guides', listTG);
+      console.log(listTG);
+      res.render('tour-guides', { listTG: listTG });
     });
 });
 
