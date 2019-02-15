@@ -3,7 +3,7 @@
   <% include layout/header.ejs %>
   <body>
     <% include layout/navbar.ejs %>
-    <section style="background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/images/bg_1.jpg); padding-top: 100px;">
+    <section style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url(/images/bg_1.jpg); padding-top: 100px;">
     </section>
     <!-- END nav -->
     <section class="ltg-section">
@@ -11,14 +11,15 @@
                 <h1 style="margin-bottom: 20px;">Information Details</h1>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="profile-img">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                        <div class="profile-img" >
+                            <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/> -->
+                            <img style="width: 350px; height: 183px;" src="<%=avtUrl%>" alt=""/>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="profile-head">
                             <h5>
-                                Mai Thi Ngoc Trinh
+                                <%=fullname%>
                             </h5>
                             <h6>
                                 Tour Guides
@@ -28,7 +29,7 @@
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star"></span>
-                            <p class="proile-rating">RANKINGS : <span>4,5/5</span></p>
+                            <p class="proile-rating">RANKINGS : <span><%=rank%>/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -57,7 +58,7 @@
                                         <label>Full Name</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>Mai Thi Ngoc Trinh</p>
+                                        <p> <%=fullname%></p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -65,7 +66,7 @@
                                         <label>Email</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>kshitighelani@gmail.com</p>
+                                        <p> <%=email%></p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -73,7 +74,7 @@
                                         <label>Phone</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>123 456 7890</p>
+                                        <p><%=phoneNumber?phoneNumber:'No phone number display'%></p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -81,7 +82,7 @@
                                         <label>Address</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>Da Nang</p>
+                                        <p> <%=address%></p>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +92,7 @@
                                         <label>Languages</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>VietNamese, English, Frances</p>
+                                        <p> <%=language%></p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -99,7 +100,7 @@
                                         <label>Hourly</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>30$/hr</p>
+                                        <p> <%=price%></p>
                                     </div>
                                 </div>
                             </div>

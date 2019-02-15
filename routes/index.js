@@ -103,6 +103,7 @@ router.get('/tour-guides-detail', (req, res) => {
     .then((tg) => {
       tg.avtUrl = `images/promo-${rd(3, 1)}.jpg`;
       tg.fullname = tg.idTourGuide.fullname;
+      tg.rank = rd(5,2);
       tg.gender = tg.idTourGuide.gender;
       tg.birthdayDate = tg.idTourGuide.birthdayDate;
       return tg;

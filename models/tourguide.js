@@ -42,7 +42,7 @@ const TourGuideSchema = new Schema({
     required: true,
     min: 0,
     max: 5,
-    default: 0,
+    default: 3,
   },
 });
 
