@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
@@ -36,6 +36,11 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
+
+app.use(function(req, res, next) {
+  res.locals.user = req.session.username;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/', authRouter);

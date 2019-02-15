@@ -88,7 +88,7 @@ router.get('/manage-location', async (req, res) => {
   return res.render('manage-location', { locations });
 });
 
-router.post('/manage-location/delete/:idLocation', async (req, res) => {
+router.get('/manage-location/delete/:idLocation', async (req, res) => {
   if (!req.session.admin) {
     return res.redirect('/');
   }
@@ -111,7 +111,7 @@ router.post('/manage-location/delete/:idLocation', async (req, res) => {
   return res.redirect('/admin/manage-location');
 });
 
-router.get('/manager-user', async (req, res) => {
+router.get('/manage-user', async (req, res) => {
   if (!req.session.admin) {
     return res.redirect('/');
   }
@@ -120,7 +120,7 @@ router.get('/manager-user', async (req, res) => {
   try {
     users = await User.find({
       role: {
-        $ne: 0,
+        $eq: 1,
       },
     });
   } catch (error) {
@@ -131,10 +131,10 @@ router.get('/manager-user', async (req, res) => {
     users = [];
   }
   console.log(users);
-  return res.render('manager-user', { users });
+  return res.render('manage-user', { users });
 });
 
-router.post('/manager-user/delete/:idUser', async (req, res) => {
+router.get('/manage-user/delete/:idUser', async (req, res) => {
   if (!req.session.admin) {
     return res.redirect('/');
   }
@@ -144,17 +144,63 @@ router.post('/manager-user/delete/:idUser', async (req, res) => {
   let userDeleted = null;
 
   try {
-    userDeleted = await Location.findByIdAndDelete(idUser);
+    userDeleted = await User.findByIdAndDelete(idUser);
   } catch (error) {
     console.log(error);
-    return res.render('manager-user', { error: 'An error has occurred, please try again in a few minutes.' });
+    return res.render('manage-user', { error: 'An error has occurred, please try again in a few minutes.' });
   }
 
   if (!userDeleted) {
-    return res.render('manager-user', { error: 'An error has occurred, please try again in a few minutes.' });
+    return res.render('manage-user', { error: 'An error has occurred, please try again in a few minutes.' });
   }
   console.log(userDeleted);
-  return res.redirect('/admin/manager-user');
+  return res.redirect('/admin/manage-user');
+});
+
+router.get('/manage-tourguide', async (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+
+  let tourguides = null;
+  try {
+    tourguides = await User.find({
+      role: {
+        $eq: 2,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (!tourguides) {
+    tourguides = [];
+  }
+  console.log(tourguides);
+  return res.render('manage-tourguide', { tourguides });
+});
+
+router.get('/manage-tourguide/delete/:idUser', async (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect('/');
+  }
+
+  const { idUser } = req.params;
+
+  let userDeleted = null;
+
+  try {
+    userDeleted = await User.findByIdAndDelete(idUser);
+  } catch (error) {
+    console.log(error);
+    return res.render('manage-tourguide', { error: 'An error has occurred, please try again in a few minutes.' });
+  }
+
+  if (!userDeleted) {
+    return res.render('manage-tourguide', { error: 'An error has occurred, please try again in a few minutes.' });
+  }
+  console.log(userDeleted);
+  return res.redirect('/admin/manage-tourguide');
 });
 
 module.exports = router;
