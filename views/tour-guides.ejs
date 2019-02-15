@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include layout/header.ejs %>
+  <body>
+    <% include layout/navbar.ejs %>
+    <section style="background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/images/bg_1.jpg); padding-top: 100px;">
+    </section>
+    <!-- END nav -->
+    <section class="ltg-section">
+      <div class="container">
+        <h1 style="margin-bottom: 20px;">List Tour Guides</h1>
+        <div class="row">
+            <% for(let i = 0 ; i <8;i++) { %>
+          <div class="col-lg-3 promo ftco-animate item-tourguides">
+              <a href="#" class="promo-img mb-4" style="background-image: url(images/boytg.jpeg);"></a>
+              <div class="text text-center">
+                <h2>Tran Huu Trung</h2>
+                <h3 class="price"><span>from</span> $30/h</h3>
+                <a href="#" class="read">Details</a>
+              </div>
+            </div>
+            <% } %>
+        </div>
+      <section class="tourguides-paginate">
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-end">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </section>
+      </div>
+    </section> <!-- .section -->
+    <% include layout/footer.ejs%>  
+  </body>
+</html>

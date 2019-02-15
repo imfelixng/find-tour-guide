@@ -1,9 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-
 const TourGuide = require('../models/tourguide');
-
 const Location = require('../models/location');
 
 const rd = (max, min = 0) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -25,7 +23,7 @@ const fakeTG = (listTG) => {
       address: 'Nguyen Luong Bang',
     }, {
       idTourGuide: { fullname: 'Tran Huu Trung' },
-      address: 'Dong Ke',
+      address: 'Au Co',
     }, {
       idTourGuide: { fullname: 'Phuoc Binh' },
       address: 'Lac Long Quan',
@@ -40,11 +38,11 @@ const fakePlace = (listPlace) => {
   }
   if (listPlace.length === 0) {
     listPlace = [
-      { name: 'Vịnh Hạ Long', intro: 'Nằm ở bờ Tây của Vịnh Bắc Bộ, bao gồm vùng biển đảo thuộc TP Hạ Long, TP Cẩm Phả và một phần của huyện đảo Vân Đồn, tỉnh Quảng Ninh' },
-      { name: 'Chùa Thiên Mụ', intro: 'Còn gọi là chùa Linh Mụ, là ngôi chùa cổ nằm trên đồi Hà Khê, tả ngạn sông Hương, cách trung tâm thành phố Huế khoảng 5km về phía tây' },
-      { name: 'Hồ Hoàn Kiếm', intro: 'Còn được gọi là Hồ Gươm, là hồ nước ngọt tự nhiên của thành phố Hà Nội, hồ có diện tích khoảng 12 hecta' },
-      { name: 'Hội An', intro: 'Từ thế kỷ XVI, XVII nơi đây đã nổi tiếng với tên gọi Faifoo, là nơi giao thương và là trung tâm buôn bán lớn của các thương nhân Nhật Bản, Trung Quốc, Bồ Ðào Nha, Italia… ở Đông Nam Á' },
-      { name: 'Phú Quốc', intro: 'Hòn đảo này còn được mệnh danh là Đảo Ngọc, là hòn đảo lớn nhất Việt Nam, cũng là đảo lớn nhất trong quần thể 22 đảo tại vùng vịnh Thái Lan' },
+      { namePlace: 'Thien Mu Pagoda', intro: 'Once the seat of the Nguyen emperors, the Citadel is a sprawling complex of grand palaces, ornate temples, walls and gates Another important landmark on the river is the city’s official symbol, the Thien Mu Pagoda' },
+      { namePlace: 'Ha Long Bay', intro: 'With its aqua-green water and cluster of limestone rocky outcrops rising from the water like sea dragons, Ha Long Bay resembles a scene from a fantasy story' },
+      { namePlace: 'My Son', intro: 'Located on the central coast of Vietnam near the Duy Phú village is the important archaeological site known as My Son' },
+      { namePlace: 'Hoi An', intro: 'Located off the coast of the South China Sea in South Central Vietnam, Hoi An is a beautiful, old city dating back 2,000 years to the Champa Kingdom' },
+      { namePlace: 'Sapa', intro: 'Surrounded by pictorial mountains, rice terraces and a diversity of hill tribes in the remote northwest of Vietnam, Sapa is a quiet town frequently used as a base for trekking in the Hoang Lien Son Mountains and touring rice paddies and traditional villages' },
     ];
   }
   return listPlace;
@@ -59,23 +57,38 @@ router.get('/', (req, res) => {
       address: tg.address,
     })));
 
-  //
   const listPlace = Location.find({}).sort({ star: 1 }).limit(limitPlace)
     .then(fakePlace)
     .then(rawListPlace => rawListPlace.map(place => ({
       imgPlace: `images/tour-${rd(8, 1)}.jpg`,
-      name: place.name,
+      namePlace: place.name,
       des: place.intro,
     })));
 
   Promise.all([listTG, listPlace])
     .then((allList) => {
-      res.render('home', { title: 'Find tour guide', listTG: allList[0], listPlace: allList[1] });
+      res.render('home', { title: 'Find tour guide', listTG: allList[0], listPlace: allList[1], username: req.session.usernamem });
     })
     .catch(() => {
-      res.render('home', { title: 'Find tour guide' });
+      res.render('home', { title: 'Find tour guide', username: req.session.username });
     });
-  // promise instanceof Promise
 });
 
+router.get('/tours', (req, res) => {
+  res.render('tours');
+});
+
+router.get('/tour-guides', (req, res) => {
+  res.render('tour-guides');
+});
+
+// GET List Tour Guides
+router.get('/tour-guides', (req, res) => {
+  res.render('tour-guides');
+});
+
+//GET tour-guides detail
+router.get('/tour-guides-detail', (req, res) => {
+  res.render('tour-guides-detail');
+});
 module.exports = router;
