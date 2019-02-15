@@ -45,7 +45,7 @@ router.get('/register', (req, res) => {
   if (req.session.username) {
     return res.redirect('/');
   }
-  return res.render('register');
+  return res.render('register', {username: req.session.username});
 });
 
 router.post('/register', async function (req, res, next) {
@@ -92,6 +92,7 @@ router.post('/register', async function (req, res, next) {
         email, 
         address
       });
+      console.log("AAAAAAA");
       tourGuide.save().then(resp => res.redirect('/login')).catch(err => {
         console.log(err);
         return res.send("tourguide unable to save data");
@@ -102,8 +103,20 @@ router.post('/register', async function (req, res, next) {
   });
 });
 
-router.get('/manager-user', (req, res) => {
-  res.render('manager-user');
+router.get('/logout', (req, res) => {
+  req.session.username = null;
+  return res.redirect('/');
 });
 
+router.get('/manager-user', (req, res) => {
+  res.render('manager-user', {username: req.session.username});
+});
+
+<<<<<<< HEAD
+=======
+router.get('/place-detail', (req, res) => {
+  res.render('place-detail', {username: req.session.username});
+});
+
+>>>>>>> develop
 module.exports = router;
