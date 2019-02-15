@@ -13,7 +13,7 @@
 
 </head>
 
-<body onload="firstload()">
+<body>
    <!-- Left Panel -->
    <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
@@ -23,40 +23,18 @@
                     <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                 </li>
                 <li class="menu-title">Manager</li><!-- /.menu-title -->
-                <li class="menu-item" onclick="clickmanageruser()">
-                    <a href="#"> <i class="menu-icon fa fa-cogs"></i>Manager User</a>
+                <li class="menu-item" >
+                    <a href="/admin/manage-user"> <i class="menu-icon fa fa-cogs"></i>Manager User</a>
                 </li>
-                <li class="menu-item" onclick="clickmanagertourguide()">
-                    <a href="#"> <i class="menu-icon fa fa-cogs"></i>Manager Tour Guide</a>
+                <li class="menu-item">
+                    <a href="/admin/manage-tourguide"> <i class="menu-icon fa fa-cogs"></i>Manager Tour Guide</a>
                 </li>
-                <li class="menu-item" onclick="clickmanagerplaces()">
-                    <a href="#"> <i class="menu-icon fa fa-cogs"></i>Manager Place</a>
+                <li class="menu-item">
+                    <a href="/admin/manage-location"> <i class="menu-icon fa fa-cogs"></i>Manager Place</a>
                 </li>                  
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
-    <script>
-            function firstload() {
-              document.getElementById("manageuser").hidden=false;
-              document.getElementById("managetourguide").hidden=true;
-              document.getElementById("manageplaces").hidden=true;
-            }
-            function clickmanageruser() {
-              document.getElementById("manageuser").hidden=false;
-              document.getElementById("managetourguide").hidden=true;
-              document.getElementById("manageplaces").hidden=true;
-            }
-            function clickmanagertourguide() {
-              document.getElementById("managetourguide").hidden=false;
-              document.getElementById("manageuser").hidden=true;
-              document.getElementById("manageplaces").hidden=true;
-            }
-            function clickmanagerplaces() {
-              document.getElementById("manageplaces").hidden=false;
-              document.getElementById("manageuser").hidden=true;
-              document.getElementById("managetourguide").hidden=true;
-            }
-    </script>
     </aside>
 <!-- /#left-panel -->
     <!-- Right Panel -->
@@ -77,7 +55,6 @@
                                             <th>ID</th>
                                             <th>Username</th>
                                             <th>Fullname</th>
-                                            <th>Role</th>
                                             <th>Gender</th>
                                             <th></th>
                                         </tr>
@@ -85,12 +62,11 @@
                                     <tbody>
                                         <% for(let i =0; i< users.length;i++){ %>
                                         <tr class=" pb-0">
-                                            <td class="serial">5.</td>
+                                            <td class="serial"><%=i %></td>
                                             <td><%= users[i]._id%></td>
                                             <td>  <span ><%= users[i].username%></span> </td>
                                             <td><span><%= users[i].fullname%></span></td>
-                                            <td><span ><%= users[i].role%></span></td>
-                                            <td><span ><%= users[i].__v%></span></td>
+                                            <td><span ><% let sex="Female"; if(users[i].__v==0) sex="Male"; %> <%= sex%></span></td>
                                             <td>
                                                 <a href="#" style="
                                                     color: red;
@@ -102,90 +78,6 @@
                                 </table>
                             </div> <!-- /.table-stats -->
                         </div>    
-                    </div>                     
-                    <!-- /.orders -->
-
-                <!-- Orders -->
-                <div class="card" id="managetourguide">
-                        <div class="card-body">
-                            <h4 class="box-title">Manage Tour Guide </h4>
-                        </div>
-                        <div class="card-body--">
-                            <div class="table-stats order-table ov-h">
-                                <table class="table ">
-                                    <thead>
-                                        <tr>
-                                            <th class="serial">#</th>
-                                            <th>ID</th>
-                                            <th>Username</th>
-                                            <th>Password</th>
-                                            <th>Fullname</th>
-                                            <th>Role</th>
-                                            <th>Gender</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class=" pb-0">
-                                            <td class="serial">5.</td>
-                                            <td> #5465 </td>
-                                            <td>  <span >Johnny Stephens</span> </td>
-                                            <td> <span >Monitor</span> </td>
-                                            <td><span>250</span></td>
-                                            <td><span >231</span></td>
-                                            <td><span >Nam</span></td>
-                                            <td>
-                                                <a href="#" style="
-                                                    color: red;
-                                                ">Delete</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> <!-- /.table-stats -->
-                        </div>  
-                    </div>                       
-                    <!-- /.orders -->
-
-                    <!-- Orders -->
-                    <div class="card" id="manageplaces">
-                        <div class="card-body">
-                            <h4 class="box-title">Manage Places </h4>
-                        </div>
-                        <div class="card-body--">
-                            <div class="table-stats order-table ov-h">
-                                <table class="table ">
-                                    <thead>
-                                        <tr>
-                                            <th class="serial">#</th>
-                                            <th>ID</th>
-                                            <th>Username</th>
-                                            <th>Password</th>
-                                            <th>Fullname</th>
-                                            <th>Role</th>
-                                            <th>Gender</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class=" pb-0">
-                                            <td class="serial">5.</td>
-                                            <td> #5465 </td>
-                                            <td>  <span >Johnny Stephens</span> </td>
-                                            <td> <span >Monitor</span> </td>
-                                            <td><span>250</span></td>
-                                            <td><span >231</span></td>
-                                            <td><span >Nam</span></td>
-                                            <td>
-                                                <a href="#" style="
-                                                    color: red;
-                                                ">Delete</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> <!-- /.table-stats -->
-                        </div>   
                     </div>                     
                     <!-- /.orders -->
         </div>
