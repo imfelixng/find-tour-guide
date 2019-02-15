@@ -113,8 +113,4 @@ router.get('/manager-user', (req, res) => {
   res.render('manager-user', {username: req.session.username});
 });
 
-router.get('/place-detail', (req, res) => {
-  res.render('place-detail', {username: req.session.username});
-});
-
 module.exports = router;

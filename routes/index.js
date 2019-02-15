@@ -126,4 +126,20 @@ router.get('/tour-guides-detail', (req, res) => {
       res.redirect('/tour-guides');
     });
 });
+
+router.get('/place-detail', function(req, res, next) {
+  TourGuide.find({}).populate('idTourGuide').sort({ star: 1 }).limit(limitTG)
+    .then(fakeTG)
+    .then(rawListTG => rawListTG.map(tg => ({
+      avtUrl: `images/promo-${rd(3, 1)}.jpg`,
+      nameTG: tg.idTourGuide.fullname,
+      address: tg.address,
+      id: tg._id,
+    })))
+    .then((listTG) => {
+      console.log(listTG);
+      res.render('place-detail', {title: "detail", listTG: listTG});
+    })
+  
+});
 module.exports = router;
