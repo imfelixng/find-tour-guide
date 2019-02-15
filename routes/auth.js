@@ -92,6 +92,7 @@ router.post('/register', async function (req, res, next) {
         email, 
         address
       });
+      console.log("AAAAAAA");
       tourGuide.save().then(resp => res.redirect('/login')).catch(err => {
         console.log(err);
         return res.send("tourguide unable to save data");
