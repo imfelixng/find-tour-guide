@@ -120,4 +120,8 @@ router.get('/manager-user', (req, res) => {
 router.get('/place-detail', (req, res) => {
   res.render('place-detail');
 });
+
+router.post('/place-detail', (req, res) => {
+  
+})
 module.exports = router;
