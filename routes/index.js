@@ -86,7 +86,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/tours', (req, res) => {
-  res.render('tours', {username: req.session.username});
+  res.render('tours', { username: req.session.username });
 });
 
 // GET List Tour Guides
@@ -102,7 +102,7 @@ router.get('/tour-guides', (req, res) => {
     })))
     .then((listTG) => {
       console.log(listTG);
-      res.render('tour-guides', { listTG: listTG, username: req.session.username });
+      res.render('tour-guides', { listTG, username: req.session.username });
     });
 });
 
@@ -114,20 +114,20 @@ router.get('/tour-guides-detail', (req, res) => {
     .then((tg) => {
       tg.avtUrl = `images/promo-${rd(3, 1)}.jpg`;
       tg.fullname = tg.idTourGuide.fullname;
-      tg.rank = rd(5,2);
+      tg.rank = rd(5, 2);
       tg.gender = tg.idTourGuide.gender;
       tg.birthdayDate = tg.idTourGuide.birthdayDate;
       return tg;
     })
     .then((tourGuide) => {
-      res.render('tour-guides-detail', {username: req.session.username, tourGuide});
+      res.render('tour-guides-detail', { username: req.session.username, tourGuide });
     })
     .catch(() => {
       res.redirect('/tour-guides');
     });
 });
 
-router.get('/place-detail', function(req, res, next) {
+router.get('/place-detail', (req, res) => {
   TourGuide.find({}).populate('idTourGuide').sort({ star: 1 }).limit(limitTG)
     .then(fakeTG)
     .then(rawListTG => rawListTG.map(tg => ({
@@ -138,8 +138,7 @@ router.get('/place-detail', function(req, res, next) {
     })))
     .then((listTG) => {
       console.log(listTG);
-      res.render('place-detail', {title: "detail", listTG: listTG});
-    })
-  
+      res.render('place-detail', { title: 'detail', listTG });
+    });
 });
 module.exports = router;
