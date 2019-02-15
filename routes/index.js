@@ -86,7 +86,17 @@ router.get('/', (req, res) => {
 });
 
 router.get('/tours', (req, res) => {
-  res.render('tours', {username: req.session.username});
+  Location.find({}).sort({ star: 1 }).limit(limitPlace)
+  .then(fakePlace)
+  .then(rawListPlace => rawListPlace.map(place => ({
+    imgPlace: `images/tour-${rd(8, 1)}.jpg`,
+    namePlace: place.name,
+    des: place.intro,
+    id: place._id,
+  })))
+  .then((listPlace) => {
+    res.render('tours', {title: "tourList", listPlace: listPlace});
+  })
 });
 
 // GET List Tour Guides
@@ -125,6 +135,22 @@ router.get('/tour-guides-detail', (req, res) => {
     .catch(() => {
       res.redirect('/tour-guides');
     });
+});
+
+router.get('/place-detail', function(req, res, next) {
+  TourGuide.find({}).populate('idTourGuide').sort({ star: 1 }).limit(limitTG)
+    .then(fakeTG)
+    .then(rawListTG => rawListTG.map(tg => ({
+      avtUrl: `images/promo-${rd(3, 1)}.jpg`,
+      nameTG: tg.idTourGuide.fullname,
+      address: tg.address,
+      id: tg._id,
+    })))
+    .then((listTG) => {
+      console.log(listTG);
+      res.render('place-detail', {title: "detail", listTG: listTG});
+    })
+  
 });
 
 router.get('/place-detail', function(req, res, next) {
