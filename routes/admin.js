@@ -88,7 +88,7 @@ router.get('/manage-location', async (req, res) => {
   return res.render('manage-location', { locations });
 });
 
-router.post('/manage-location/delete/:idLocation', async (req, res) => {
+router.get('/manage-location/delete/:idLocation', async (req, res) => {
   if (!req.session.admin) {
     return res.redirect('/');
   }
@@ -134,7 +134,7 @@ router.get('/manager-user', async (req, res) => {
   return res.render('manager-user', { users });
 });
 
-router.post('/manager-user/delete/:idUser', async (req, res) => {
+router.get('/manager-user/delete/:idUser', async (req, res) => {
   if (!req.session.admin) {
     return res.redirect('/');
   }
