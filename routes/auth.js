@@ -106,8 +106,4 @@ router.get('/manager-user', (req, res) => {
   res.render('manager-user');
 });
 
-router.get('/place-detail', (req, res) => {
-  res.render('place-detail');
-});
-
 module.exports = router;
