@@ -106,7 +106,6 @@ router.post('/manage-location/delete/:idLocation', async (req, res) => {
   }
 
   return res.redirect('/admin/manage-location');
-
 });
 
 module.exports = router;

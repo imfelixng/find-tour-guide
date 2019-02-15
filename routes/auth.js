@@ -1,5 +1,5 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
 const router = express.Router();
 
 const Account = require('../models/account');
@@ -84,25 +84,22 @@ router.post('/register', async function (req, res, next) {
     role
   });
 
-  user.save().then().catch(err => {
-    res.status(400).send("unable to save data");
+  user.save().then(userResult => {
+    let id = userResult._id;
+    if (userResult.role === 2){
+      let tourGuide = new TourGuide({
+        idTourGuide: id,
+        email, 
+        address
+      });
+      tourGuide.save().then(resp => res.redirect('/login')).catch(err => {
+        console.log(err);
+        return res.send("tourguide unable to save data");
+      });
+    }
+  }).catch(err => {
+    return res.send("user unable to save data");
   });
-
-  let id = user._id;
-  if(role == 2){
-    let tourGuide = new TourGuide({
-      id,
-      email, 
-      address
-    });
-    console.log(tourGuide);
-
-    tourGuide.save().then().catch(err => {
-      res.status(400).send("unable to save data");
-    });
-  }
-
-  return res.redirect('/login');
 });
 
 router.get('/manager-user', (req, res) => {
@@ -112,4 +109,5 @@ router.get('/manager-user', (req, res) => {
 router.get('/place-detail', (req, res) => {
   res.render('place-detail');
 });
+
 module.exports = router;
