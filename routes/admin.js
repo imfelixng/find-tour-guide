@@ -5,6 +5,7 @@ const router = express.Router();
 
 const Location = require('../models/location');
 const User = require('../models/account');
+const TourGuide = require('../models/tourguide');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -193,13 +194,26 @@ router.get('/manage-tourguide/delete/:idUser', async (req, res) => {
     userDeleted = await User.findByIdAndDelete(idUser);
   } catch (error) {
     console.log(error);
-    return res.render('manage-tourguide', { error: 'An error has occurred, please try again in a few minutes.' });
+    return res.render('manage-tourguide', { tourguides:[], error: 'An error has occurred, please try again in a few minutes.' });
   }
 
   if (!userDeleted) {
-    return res.render('manage-tourguide', { error: 'An error has occurred, please try again in a few minutes.' });
+    return res.render('manage-tourguide', { tourguides:[], error: 'An error has occurred, please try again in a few minutes.' });
   }
-  console.log(userDeleted);
+
+  let tourGuideDeleted = null;
+  try {
+    tourGuideDeleted = await TourGuide.findOneAndDelete({idTourGuide: userDeleted._id});
+  } catch (error) {
+    console.log(error);
+    return res.render('manage-tourguide', { tourguides:[], error: 'An error has occurred, please try again in a few minutes.' });    
+  }
+
+  if (!tourGuideDeleted) {
+    return res.render('manage-tourguide', { tourguides:[], error: 'An error has occurred, please try again in a few minutes.' });
+  }
+
+  console.log(tourGuideDeleted);
   return res.redirect('/admin/manage-tourguide');
 });
 

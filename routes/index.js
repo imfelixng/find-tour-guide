@@ -138,8 +138,7 @@ router.get('/place-detail', function(req, res, next) {
     })))
     .then((listTG) => {
       console.log(listTG);
-      res.render('place-detail', {title: "detail", listTG: listTG});
+      res.render('place-detail', {title: "detail", listTG: listTG, {username: req.session.username});
     })
-  
 });
 module.exports = router;
