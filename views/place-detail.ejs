@@ -143,21 +143,22 @@
   
             </div>
             <div  style="height: 980px; overflow: scroll" class="col-md-3 sidebar">
+              <% for(let i =0; i< listTG.length;i++){ %>
+                <div style="margin-top: 30px; margin-left: 40px" class="col-lg-3 promo ftco-animate">
+                  <a
+                    href="#"
+                    class="promo-img mb-4"
+                    style="background-image: url(<%= listTG[i].avtUrl %>);"
+                  ></a>
+                  <div style="width:210px; text-align: center" text text-center">
+                    <h2 style="font-size:15px"><%= listTG[i].nameTG%></h2>
+                    <h3 style="font-size:15px" class="price"><%= listTG[i].address%></h3>
+                    <a href="#" class="read">Read more</a>
+                  </div>
+                </div>
+                <% } %>
           </div>
-          <% for(let i =0; i< listTG.length;i++){ %>
-            <div class="col-lg-3 promo ftco-animate">
-              <a
-                href="#"
-                class="promo-img mb-4"
-                style="background-image: url(<%= listTG[i].avtUrl %>);"
-              ></a>
-              <div class="text text-center">
-                <h2><%= listTG[i].nameTG%></h2>
-                <h3 class="price"><%= listTG[i].address%></h3>
-                <a href="#" class="read">Read more</a>
-              </div>
-            </div>
-            <% } %>
+          
           </div>
         </div>
       </section> <!-- .section -->

@@ -106,13 +106,4 @@ router.get('/manager-user', (req, res) => {
   res.render('manager-user');
 });
 
-<<<<<<< HEAD
-router.get('/place-detail', function(req, res, next) {
-  res.render('place-detail', {title: "detail"});
-=======
-router.get('/place-detail', (req, res) => {
-  res.render('place-detail');
->>>>>>> develop
-});
-
 module.exports = router;
