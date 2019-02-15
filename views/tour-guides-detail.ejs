@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include layout/header.ejs %>
+  <body>
+    <% include layout/navbar.ejs %>
+    <section style="background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/images/bg_1.jpg); padding-top: 100px;">
+    </section>
+    <!-- END nav -->
+    <section class="ltg-section">
+        <div class="container emp-profile">
+                <h1 style="margin-bottom: 20px;">Information Details</h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="profile-head">
+                            <h5>
+                                Mai Thi Ngoc Trinh
+                            </h5>
+                            <h6>
+                                Tour Guides
+                            </h6>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <p class="proile-rating">RANKINGS : <span>4,5/5</span></p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Working</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            <p>WORK LINK</p>
+                            <a href="">Website Link</a><br/>
+                            <a href="">Facebook Link</a><br/>
+                            <a href="">Profile</a><br/>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Full Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Mai Thi Ngoc Trinh</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>kshitighelani@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Phone</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>123 456 7890</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Address</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Da Nang</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Languages</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>VietNamese, English, Frances</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Hourly</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>30$/hr</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+        </div>
+        <div class="container">
+            <p style="color: #000; font-size: 18px;">Rating for this tour-guides </p>
+            <label>Are you satisfied with this guide about attitude and expertise?</label>
+            <div class="row">
+                <div class="col-lg-12 rate-item-tourguides">
+                    <form action="rate" method="post">
+                        <div>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div> 
+
+    </section> <!-- .section -->
+    <% include layout/footer.ejs%>  
+  </body>
+</html>

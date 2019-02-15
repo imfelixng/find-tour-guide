@@ -1,5 +1,5 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
 const router = express.Router();
 
 const Account = require('../models/account');
@@ -7,7 +7,10 @@ const TourGuide = require('../models/tourguide');
 
 /* GET users listing. */
 router.get('/login', (req, res) => {
-  res.render('login', { error: null });
+  if (req.session.username) {
+    return res.redirect('/');
+  }
+  return res.render('login', { error: null });
 });
 
 router.post('/login', async (req, res) => {
@@ -28,32 +31,21 @@ router.post('/login', async (req, res) => {
   if (account.password !== password) {
     return res.render('login', { error: 'Username or password is incorrect!' });
   }
-  return res.redirect('/');
-});
 
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  let account = null;
-  try {
-    account = await Account.findOne({ username });
-  } catch (error) {
-    console.log(error);
-    return res.render('add-location', { error: 'An error has occurred, please try again in a few minutes.' });
+  if (account.role === 0) {
+    req.session.admin = true;
+    return res.redirect('/admin');
   }
 
-  if (!account) {
-    return res.render('login', { error: 'Username or password is incorrect!' });
-  }
-
-  if (account.password !== password) {
-    return res.render('login', { error: 'Username or password is incorrect!' });
-  }
+  req.session.username = account.username;
   return res.redirect('/');
 });
 
 router.get('/register', (req, res) => {
-  res.render('register');
+  if (req.session.username) {
+    return res.redirect('/');
+  }
+  return res.render('register');
 });
 
 router.post('/register', async function (req, res, next) {
@@ -92,25 +84,22 @@ router.post('/register', async function (req, res, next) {
     role
   });
 
-  user.save().then().catch(err => {
-    res.status(400).send("unable to save data");
+  user.save().then(userResult => {
+    let id = userResult._id;
+    if (userResult.role === 2){
+      let tourGuide = new TourGuide({
+        idTourGuide: id,
+        email, 
+        address
+      });
+      tourGuide.save().then(resp => res.redirect('/login')).catch(err => {
+        console.log(err);
+        return res.send("tourguide unable to save data");
+      });
+    }
+  }).catch(err => {
+    return res.send("user unable to save data");
   });
-
-  let id = user._id;
-  if(role == 2){
-    let tourGuide = new TourGuide({
-      id,
-      email, 
-      address
-    });
-    console.log(tourGuide);
-
-    tourGuide.save().then().catch(err => {
-      res.status(400).send("unable to save data");
-    });
-  }
-
-  return res.redirect('/login');
 });
 
 router.get('/manager-user', (req, res) => {
@@ -121,7 +110,4 @@ router.get('/place-detail', (req, res) => {
   res.render('place-detail');
 });
 
-router.post('/place-detail', (req, res) => {
-  
-})
 module.exports = router;

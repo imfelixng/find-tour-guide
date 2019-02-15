@@ -2,13 +2,15 @@
 <html lang="en">
  <% include layout/header.ejs %>
 <body>
-  <h1>Register page</h1>
+  <% include layout/navbar.ejs %>
+  <section style="padding-bottom: 44px; background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/images/bg_1.jpg); padding-top: 100px;">
   <div class="container register-form">
     <div class="form">
-        <div class="note">
+        <!-- <div class="note">
             <p>Register the system account</p>
-        </div>
+        </div> -->
         <div class="form-content">
+            <p class="title-form-register">Register the system account</p>
             <form action="register" method="post">
                 <div class="row">
                     <div class="col-md-6">
@@ -63,7 +65,7 @@
         </div>
     </div>
 </div>
-
+</section>
 <script src="../js/jquery.min.js"></script>
 <script>
   $('#rowWantTourGuide').hide();
