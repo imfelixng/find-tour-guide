@@ -37,6 +37,11 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+app.use(function(req, res, next) {
+  res.locals.user = req.session.username;
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/admin', adminRouter);

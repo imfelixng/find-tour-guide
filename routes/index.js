@@ -86,20 +86,20 @@ router.get('/', (req, res) => {
 });
 
 router.get('/tours', (req, res) => {
-  res.render('tours');
+  res.render('tours', {username: req.session.username});
 });
 
 router.get('/tour-guides', (req, res) => {
-  res.render('tour-guides');
+  res.render('tour-guides', {username: req.session.username});
 });
 
 // GET List Tour Guides
 router.get('/tour-guides', (req, res) => {
-  res.render('tour-guides');
+  res.render('tour-guides', {username: req.session.username});
 });
 
 // GET tour-guides detail
 router.get('/tour-guides-detail', (req, res) => {
-  res.render('tour-guides-detail');
+  res.render('tour-guides-detail', {username: req.session.username});
 });
 module.exports = router;
