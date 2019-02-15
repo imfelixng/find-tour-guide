@@ -85,6 +85,7 @@ router.post('/register', async function (req, res, next) {
   });
 
   user.save().then(userResult => {
+    return res.redirect('/login');
     let id = userResult._id;
     if (userResult.role === 2){
       let tourGuide = new TourGuide({
