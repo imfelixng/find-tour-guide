@@ -115,7 +115,7 @@ router.get('place-detail', (req, res) => {
       console.log(listPlace);
       res.render('place-detail', {title: "detail", listPlace: listPlace});
     }));
-
+  });
 router.get('/tour-guides', (req, res) => {
   res.render('tour-guides');
 });
@@ -145,4 +145,5 @@ router.get('/place-detail', function(req, res, next) {
     })
   
 });
+
 module.exports = router;
