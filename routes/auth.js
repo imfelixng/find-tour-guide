@@ -45,7 +45,7 @@ router.get('/register', (req, res) => {
   if (req.session.username) {
     return res.redirect('/');
   }
-  return res.render('register');
+  return res.render('register', {username: req.session.username});
 });
 
 router.post('/register', async function (req, res, next) {
@@ -108,11 +108,11 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/manager-user', (req, res) => {
-  res.render('manager-user');
+  res.render('manager-user', {username: req.session.username});
 });
 
 router.get('/place-detail', (req, res) => {
-  res.render('place-detail');
+  res.render('place-detail', {username: req.session.username});
 });
 
 module.exports = router;
