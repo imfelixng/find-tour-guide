@@ -112,11 +112,4 @@ router.get('/manager-user', (req, res) => {
   res.render('manager-user', {username: req.session.username});
 });
 
-<<<<<<< HEAD
-=======
-router.get('/place-detail', (req, res) => {
-  res.render('place-detail', {username: req.session.username});
-});
-
->>>>>>> develop
 module.exports = router;

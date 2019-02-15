@@ -86,7 +86,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/tours', (req, res) => {
-<<<<<<< HEAD
   Location.find({}).sort({ star: 1 }).limit(limitPlace)
   .then(fakePlace)
   .then(rawListPlace => rawListPlace.map(place => ({
@@ -98,9 +97,6 @@ router.get('/tours', (req, res) => {
   .then((listPlace) => {
     res.render('tours', {title: "tourList", listPlace: listPlace});
   })
-=======
-  res.render('tours', {username: req.session.username});
->>>>>>> develop
 });
 
 router.get('/tour-guides', (req, res) => {
